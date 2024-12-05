@@ -22,13 +22,13 @@ sudo -u postgres psql -c "ALTER USER postgres WITH PASSWORD 'postgres'"
 # create app database if it doesn't exist
 sudo -u postgres psql -c "CREATE DATABASE app" || true
 
-# Run /sundai/run.sh if it exists
-if [ -f /sundai/run.sh ]; then
-  echo "Running /sundai/run.sh..."
-  bash /sundai/run.sh
-else
-  while true; do
-    echo "running..."
-    sleep 60
-  done
-fi
+# Run /sundai/run.sh when it exists
+while true; do
+  if [ -f /sundai/run.sh ]; then
+    echo "Running /sundai/run.sh..."
+    bash /sundai/run.sh || echo "/sundai/run.sh returned non-zero exit code"
+  else
+    echo "Waiting for /sundai/run.sh..."
+    sleep 5
+  fi
+done
