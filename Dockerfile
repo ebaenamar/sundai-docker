@@ -20,9 +20,9 @@ RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && \
     DEBIAN_FRONTEND=noninteractive apt-get install --yes nodejs && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# Set up the runner script
+# Copy and set up the runner script
 COPY run.sh /sundai/run.sh
 RUN chmod +x /sundai/run.sh
 
-# Default command
-CMD ["bash", "/sundai/run.sh"]
+# Keep the container running after running the script
+CMD ["/bin/bash", "-c", "/sundai/run.sh && tail -f /dev/null"]
