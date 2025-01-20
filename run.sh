@@ -44,10 +44,12 @@ if [ -f /sundai/run.sh ]; then
     echo "/sundai/run.sh returned a non-zero exit code. Exiting with error."
     exit 1
   else
-    echo "/sundai/run.sh executed successfully. Exiting."
-    exit 0
+    echo "/sundai/run.sh executed successfully."
   fi
 else
-  echo "File /sundai/run.sh not found. Exiting."
-  exit 1
+  echo "File /sundai/run.sh not found."
 fi
+
+# Keep the container alive for interactive use
+echo "Container is now running and ready for interaction."
+tail -f /dev/null
